@@ -1,7 +1,9 @@
 <b>Demo Rabbitmq application</b>
 
-Application divided into two parts:
+Application is POM Java project, divided into two parts:
 * PRODUCER (REST service)
 * CONSUMER (worker)
 
-Rubbitmq must be installed
+Rubbitmq must be installed.
+
+Java version 1.8
