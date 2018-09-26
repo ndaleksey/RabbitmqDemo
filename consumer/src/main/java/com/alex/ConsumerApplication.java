@@ -5,8 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.rabbitmq.client.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
@@ -17,7 +15,7 @@ import java.util.concurrent.TimeoutException;
 public class ConsumerApplication {
 	private final static String QUEUE_NAME = "demo_queue";
 
-	private static String getPrettifiedString(String jsonString)
+	public static String getPrettifiedString(String jsonString)
 	{
 		JsonParser parser = new JsonParser();
 		JsonObject json = parser.parse(jsonString).getAsJsonObject();
@@ -36,10 +34,9 @@ public class ConsumerApplication {
 			Channel channel = connection.createChannel();
 
 			channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+			System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 
 			DefaultConsumer consumer = new DefaultConsumer(channel) {
-				private final Logger innerLogger =
-						LoggerFactory.getLogger(DefaultConsumer.class);
 				@Override
 				public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body)
 						throws IOException {
